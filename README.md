@@ -6,6 +6,6 @@ File name | description
 --------- | -----------
 RanGenX.C | Source code file for generating correlated particles and calculating the correlations
 do_rangenX.C | Main code to run RanGenX.C with various parameters
-rng_cumulant.C | Plots the cumulants
-rng_histX.C | Plots the ouput from RanGenX.C
+plot_rangenx.C | Plots the ouput from RanGenX.C
+Makefile | The Makefile for the project, type 'make' to compile the code
 
