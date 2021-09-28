@@ -15,7 +15,7 @@ const double pi= 3.1415926535;
 void get_corr(int,int,int,double,int);
 
 // --- recursion function (uses vector of angles to do calculations)
-void do_recursion(vector<double>&);
+void do_recursion(vector<double>&,int);
 
 // --- gets system time, executes get_corr inside of over sequences/events
 void execute(int,int,int,int,double,int,unsigned int);
@@ -154,7 +154,7 @@ void get_corr(int nparticles, int ntuple, int harmonic, double space, int seed)
 
     } // end of nparticles for loop
 
-  do_recursion(ang);
+  do_recursion(ang,harmonic);
 
   return;
 
@@ -162,7 +162,7 @@ void get_corr(int nparticles, int ntuple, int harmonic, double space, int seed)
 
 
 
-void do_recursion(vector<double>& ang)
+void do_recursion(vector<double>& ang, int harmonic)
 {
 
   for(int h=0;h<maxHarmonic;h++)
@@ -191,7 +191,7 @@ void do_recursion(vector<double>& ang)
 
   // --- from generic formulas ----------------------------------------------------------------------------
   //  2-p correlations
-  int harmonics_Two_Num[2] = {2,-2}; // 2, -2
+  int harmonics_Two_Num[2] = {harmonic,-harmonic}; // 2, -2
   int harmonics_Two_Den[2] = {0,0}; // recursion gives the right combinatorics
   TComplex twoRecursion = Recursion(2,harmonics_Two_Num)/Recursion(2,harmonics_Two_Den).Re();
   //double spwTwoRecursion = Recursion(2,harmonics_Two_Den).Re();
@@ -199,7 +199,7 @@ void do_recursion(vector<double>& ang)
   hmult_recursion[0][0]->Fill(mult,twoRecursion.Re(),wTwoRecursion);
   hmult_recursion[1][0]->Fill(mult,twoRecursion.Im(),wTwoRecursion);
   //  4-p correlations
-  int harmonics_Four_Num[4] = {2,2,-2,-2};
+  int harmonics_Four_Num[4] = {harmonic,harmonic,-harmonic,-harmonic};
   int harmonics_Four_Den[4] = {0,0,0,0};
   TComplex fourRecursion = Recursion(4,harmonics_Four_Num)/Recursion(4,harmonics_Four_Den).Re();
   //double spwFourRecursion = Recursion(4,harmonics_Four_Den).Re();
@@ -207,7 +207,7 @@ void do_recursion(vector<double>& ang)
   hmult_recursion[0][2]->Fill(mult,fourRecursion.Re(),wFourRecursion);
   hmult_recursion[1][2]->Fill(mult,fourRecursion.Im(),wFourRecursion);
   //  6-p correlations:
-  int harmonics_Six_Num[6] = {2,2,2,-2,-2,-2};
+  int harmonics_Six_Num[6] = {harmonic,harmonic,harmonic,-harmonic,-harmonic,-harmonic};
   int harmonics_Six_Den[6] = {0,0,0,0,0,0};
   TComplex sixRecursion = Recursion(6,harmonics_Six_Num)/Recursion(6,harmonics_Six_Den).Re();
   //double spwSixRecursion = Recursion(6,harmonics_Six_Den).Re();
@@ -215,7 +215,7 @@ void do_recursion(vector<double>& ang)
   hmult_recursion[0][4]->Fill(mult,sixRecursion.Re(),wSixRecursion);
   hmult_recursion[1][4]->Fill(mult,sixRecursion.Im(),wSixRecursion);
   //  8-p correlations
-  int harmonics_Eight_Num[8] = {2,2,2,2,-2,-2,-2,-2};
+  int harmonics_Eight_Num[8] = {harmonic,harmonic,harmonic,harmonic,-harmonic,-harmonic,-harmonic,-harmonic};
   int harmonics_Eight_Den[8] = {0,0,0,0,0,0,0,0};
   TComplex eightRecursion = Recursion(8,harmonics_Eight_Num)/Recursion(8,harmonics_Eight_Den).Re();
   //double spwEightRecursion = Recursion(8,harmonics_Eight_Den).Re();
