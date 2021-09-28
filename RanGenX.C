@@ -93,6 +93,7 @@ void execute(int sequences, int nparticles, int ntuple, double space, int sequen
         }
     }
   HistFile->Write();
+  cout << "Wrote histogram file " << HistFile->GetName() << endl;
   delete HistFile;
 
   Delete(); // delete histograms
