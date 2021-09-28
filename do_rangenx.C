@@ -37,10 +37,10 @@ int main(int argc, char *argv[])
   cout << "Random seed " << seed << endl;
   cout << "Tuplet space " << space << endl;
 
-  execute(nevents,250,2,space,sequence,seed);
-  execute(nevents,250,4,space,sequence,seed);
-  execute(nevents,250,6,space,sequence,seed);
-  execute(nevents,250,8,space,sequence,seed);
+  execute(nevents,250,2,2,space,sequence,seed);
+  execute(nevents,250,4,2,space,sequence,seed);
+  execute(nevents,250,6,2,space,sequence,seed);
+  execute(nevents,250,8,2,space,sequence,seed);
 
   return 0;
 

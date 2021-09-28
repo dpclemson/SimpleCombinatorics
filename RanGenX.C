@@ -9,38 +9,18 @@
 
 using namespace std;
 
+const double pi= 3.1415926535;
+
 // --- correlation function (generates particles, calls recursion)
-void get_corr(int,int,double,int);
+void get_corr(int,int,int,double,int);
 
 // --- recursion function (uses vector of angles to do calculations)
 void do_recursion(vector<double>&);
 
 // --- gets system time, executes get_corr inside of over sequences/events
-void execute(int,int,int,double,int,unsigned int);
-void execute(int,int,int,double);
-void execute(int,int,int);
+void execute(int,int,int,int,double,int,unsigned int);
 
-void RanGenX()
-{
-  int howmany = 10;
-  double space = 0.1; // default space between correlated ntuples...
-  execute(howmany,700,2,space);
-  execute(howmany,700,4,space);
-  execute(howmany,700,6,space);
-  execute(howmany,700,8,space);
-}
-
-void execute(int sequences, int nparticles, int ntuple)
-{
-  execute(sequences,nparticles,ntuple,0.1);
-}
-
-void execute(int sequences, int nparticles, int ntuple, double space)
-{
-  execute(sequences,nparticles,ntuple,space,-1,0);
-}
-
-void execute(int sequences, int nparticles, int ntuple, double space, int sequence_id, unsigned int seed)
+void execute(int sequences, int nparticles, int ntuple, int harmonic, double space, int sequence_id, unsigned int seed)
 {
 
   int stop = nparticles/ntuple;
@@ -59,7 +39,7 @@ void execute(int sequences, int nparticles, int ntuple, double space, int sequen
       if ( j % 10 == 0 ) cout << "Executing sequence j = " << j << endl;
       for ( int i = 1; i < stop; ++i )
 	{
-	  get_corr(i,ntuple,space,seed);
+	  get_corr(i,ntuple,harmonic,space,seed);
 	}
     }
 
@@ -111,7 +91,7 @@ void execute(int sequences, int nparticles, int ntuple, double space, int sequen
 
 
 
-void get_corr(int nparticles, int ntuple, double space, int seed)
+void get_corr(int nparticles, int ntuple, int harmonic, double space, int seed)
 {
 
   if ( seed < 0 ) seed = 0;
@@ -128,10 +108,10 @@ void get_corr(int nparticles, int ntuple, double space, int seed)
   for ( int i = 0; i < nparticles; ++i )
     {
       //double means an exact number, phi1 is the name of the double for particle 1.
-      double phi1 = angle.Uniform(-3.1415926535,3.1415926535);
+      double phi1 = angle.Uniform(-pi,pi);
       double phi2 = 0; //same as above, but for particle 2
-      if ( phi1 > 0 ) phi2 = phi1 - 3.1415926535;
-      if ( phi1 < 0 ) phi2 = phi1 + 3.1415926535;
+      if ( phi1 > 0 ) phi2 = phi1 - 2*pi/harmonic;
+      if ( phi1 < 0 ) phi2 = phi1 + 2*pi/harmonic;
 
       ang.push_back(phi1); //push_back to stack numbers on return
       ang.push_back(phi2);
@@ -142,8 +122,8 @@ void get_corr(int nparticles, int ntuple, double space, int seed)
       double phi4 = 0;
       if ( phi1 > 0 ) phi3 = phi1 - space;
       if ( phi1 < 0 ) phi3 = phi1 + space;
-      if ( phi3 > 0 ) phi4 = phi3 - 3.1415926535;
-      if ( phi3 < 0 ) phi4 = phi3 + 3.1415926535;
+      if ( phi3 > 0 ) phi4 = phi3 - 2*pi/harmonic;
+      if ( phi3 < 0 ) phi4 = phi3 + 2*pi/harmonic;
 
       ang.push_back(phi3);
       ang.push_back(phi4);
@@ -154,8 +134,8 @@ void get_corr(int nparticles, int ntuple, double space, int seed)
       double phi6 = 0;
       if ( phi3 > 0 ) phi5 = phi3 - space;
       if ( phi3 < 0 ) phi5 = phi3 + space;
-      if ( phi5 > 0 ) phi6 = phi5 - 3.1415926535;
-      if ( phi5 < 0 ) phi6 = phi5 + 3.1415926535;
+      if ( phi5 > 0 ) phi6 = phi5 - 2*pi/harmonic;
+      if ( phi5 < 0 ) phi6 = phi5 + 2*pi/harmonic;
 
       ang.push_back(phi5);
       ang.push_back(phi6);
@@ -166,8 +146,8 @@ void get_corr(int nparticles, int ntuple, double space, int seed)
       double phi8 = 0;
       if ( phi5 > 0 ) phi7 = phi5 - space;
       if ( phi5 < 0 ) phi7 = phi5 + space;
-      if ( phi7 > 0 ) phi8 = phi7 - 3.1415926535;
-      if ( phi7 < 0 ) phi8 = phi7 + 3.1415926535;
+      if ( phi7 > 0 ) phi8 = phi7 - 2*pi/harmonic;
+      if ( phi7 < 0 ) phi8 = phi7 + 2*pi/harmonic;
 
       ang.push_back(phi7);
       ang.push_back(phi8);
