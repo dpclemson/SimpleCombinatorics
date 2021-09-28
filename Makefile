@@ -15,6 +15,6 @@ debug: $(PROGRAMS)
 phenix: CFLAGS += -std=c++11
 phenix: $(PROGRAMS)
 
-do_rangenx: do_rangenx.C
+do_rangenx: do_rangenx.C RanGenX.C Recursion.C
 	g++ -o do_rangenx do_rangenx.C $(CFLAGS) $(RFLAGS)
 
