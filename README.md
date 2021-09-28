@@ -2,6 +2,8 @@
 
 ## These are the main files and directories for this project
 
+### Dylan has added to these files
+
 File name | description
 --------- | -----------
 RanGenX.C | Source code file for generating correlated particles and calculating the correlations
