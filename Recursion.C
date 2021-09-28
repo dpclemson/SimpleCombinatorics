@@ -10,6 +10,7 @@ TComplex Recursion(int, int*);
 TComplex Recursion(int, int*, int, int);
 
 void Init();
+void Init(int);
 
 TComplex Recursion(int n, int* harmonic)
 {
@@ -64,11 +65,15 @@ TComplex Q(int n, int p)
 
 void Init()
 {
+  Init(700);
+}
+void Init(int n)
+{
   for ( int cs = 0; cs < 2; ++cs )
     {
       for(int c = 0; c < maxCorrelator; ++c )
         {
-          hmult_recursion[cs][c] = new TProfile(Form("hmult_recursion_%d_%d",cs,c),"",700,-0.5,699.5,-1.1,1.1);
+          hmult_recursion[cs][c] = new TProfile(Form("hmult_recursion_%d_%d",cs,c),"",n,-0.5,(double)n-0.5,-1.1,1.1);
         }
     }
 }

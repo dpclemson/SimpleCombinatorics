@@ -51,7 +51,7 @@ void execute(int sequences, int nparticles, int ntuple, double space, int sequen
   int begintime = Time.tv_sec;
   //cout<<"begintime is "<<begintime<<endl;
 
-  Init(); // initialize histograms
+  Init(nparticles); // initialize histograms
 
   // --- generate the correlations
   for ( int j = 0; j < sequences; ++j )
