@@ -37,10 +37,14 @@ int main(int argc, char *argv[])
   cout << "Random seed " << seed << endl;
   cout << "Tuplet space " << space << endl;
 
-  execute(nevents,250,2,2,space,sequence,seed);
-  execute(nevents,250,4,2,space,sequence,seed);
-  execute(nevents,250,6,2,space,sequence,seed);
-  execute(nevents,250,8,2,space,sequence,seed);
+  // --- nevents, nparticles, correlator, harmonic, sequence, seed
+  execute(nevents,250,2,2,space,sequence,seed); // nevents, max 250 tracks, 2-p correlation, 2nd harmonic, sequence number, seed
+  execute(nevents,250,3,2,space,sequence,seed); // nevents, max 250 tracks, 3-p correlation, 2nd harmonic, sequence number, seed
+  execute(nevents,250,4,2,space,sequence,seed); // nevents, max 250 tracks, 4-p correlation, 2nd harmonic, sequence number, seed
+  execute(nevents,250,5,2,space,sequence,seed); // nevents, max 250 tracks, 5-p correlation, 2nd harmonic, sequence number, seed
+  execute(nevents,250,6,2,space,sequence,seed); // nevents, max 250 tracks, 6-p correlation, 2nd harmonic, sequence number, seed
+  execute(nevents,250,7,2,space,sequence,seed); // nevents, max 250 tracks, 7-p correlation, 2nd harmonic, sequence number, seed
+  execute(nevents,250,8,2,space,sequence,seed); // nevents, max 250 tracks, 8-p correlation, 2nd harmonic, sequence number, seed
 
   return 0;
 
