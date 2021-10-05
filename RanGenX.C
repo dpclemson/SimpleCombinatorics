@@ -58,8 +58,8 @@ void execute(int sequences, int nparticles, int ntuple, int harmonic, double spa
   cout<<"time stamp is "<<timestamp<<endl;
 
   char outfilename[100];
-  sprintf(outfilename,"OutputFiles/OutFile_%s_k%d.root",timestamp,ntuple);
-  if ( sequence_id >= 0 ) sprintf(outfilename,"CondorOutput/OutFile_%04d_k%d.root",sequence_id,ntuple);
+  sprintf(outfilename,"OutputFiles/OutFile_%s_h%d_k%d.root",timestamp,harmonic,ntuple);
+  if ( sequence_id >= 0 ) sprintf(outfilename,"CondorOutput/OutFile_%04d_h%d_k%d.root",sequence_id,harmonic,ntuple);
 
   //--- make an output file to write the histograms
   TFile* HistFile = new TFile(outfilename,"recreate");
@@ -126,7 +126,7 @@ void get_corr(int nparticles, int ntuple, int harmonic, double space, int seed)
       if ( phi3 < 0 ) phi4 = phi3 + 2*pi/harmonic;
 
       ang.push_back(phi3);
-      ang.push_back(phi4);
+      if ( ntuple > 3 ) ang.push_back(phi4);
 
       if ( ntuple <= 4 ) continue;
 
@@ -138,7 +138,7 @@ void get_corr(int nparticles, int ntuple, int harmonic, double space, int seed)
       if ( phi5 < 0 ) phi6 = phi5 + 2*pi/harmonic;
 
       ang.push_back(phi5);
-      ang.push_back(phi6);
+      if ( ntuple > 5 ) ang.push_back(phi6);
 
       if ( ntuple <= 6 ) continue;
 
@@ -150,7 +150,7 @@ void get_corr(int nparticles, int ntuple, int harmonic, double space, int seed)
       if ( phi7 < 0 ) phi8 = phi7 + 2*pi/harmonic;
 
       ang.push_back(phi7);
-      ang.push_back(phi8);
+      if ( ntuple > 7 ) ang.push_back(phi8);
 
     } // end of nparticles for loop
 
@@ -190,30 +190,61 @@ void do_recursion(vector<double>& ang, int harmonic)
     } // end of loop over ang vector
 
   // --- from generic formulas ----------------------------------------------------------------------------
+
   //  2-p correlations
-  int harmonics_Two_Num[2] = {harmonic,-harmonic}; // 2, -2
+  int harmonics_Two_Num[2] = {harmonic,-harmonic}; // harmonic*(1,-1)
   int harmonics_Two_Den[2] = {0,0}; // recursion gives the right combinatorics
   TComplex twoRecursion = Recursion(2,harmonics_Two_Num)/Recursion(2,harmonics_Two_Den).Re();
   //double spwTwoRecursion = Recursion(2,harmonics_Two_Den).Re();
   double wTwoRecursion = 1.0;
   hmult_recursion[0][0]->Fill(mult,twoRecursion.Re(),wTwoRecursion);
   hmult_recursion[1][0]->Fill(mult,twoRecursion.Im(),wTwoRecursion);
+
+  //  3-p correlations
+  int harmonics_Three_Num[3] = {harmonic,harmonic,-2*harmonic}; // harmonic*(1,1,-2)
+  int harmonics_Three_Den[3] = {0,0,0}; // recursion gives the right combinatorics
+  TComplex threeRecursion = Recursion(3,harmonics_Three_Num)/Recursion(3,harmonics_Three_Den).Re();
+  //double spwThreeRecursion = Recursion(3,harmonics_Three_Den).Re();
+  double wThreeRecursion = 1.0;
+  hmult_recursion[0][1]->Fill(mult,threeRecursion.Re(),wThreeRecursion);
+  hmult_recursion[1][1]->Fill(mult,threeRecursion.Im(),wThreeRecursion);
+
   //  4-p correlations
-  int harmonics_Four_Num[4] = {harmonic,harmonic,-harmonic,-harmonic};
+  int harmonics_Four_Num[4] = {harmonic,harmonic,-harmonic,-harmonic}; // harmonic*(1,1,-1,-1)
   int harmonics_Four_Den[4] = {0,0,0,0};
   TComplex fourRecursion = Recursion(4,harmonics_Four_Num)/Recursion(4,harmonics_Four_Den).Re();
   //double spwFourRecursion = Recursion(4,harmonics_Four_Den).Re();
   double wFourRecursion = 1.0;
   hmult_recursion[0][2]->Fill(mult,fourRecursion.Re(),wFourRecursion);
   hmult_recursion[1][2]->Fill(mult,fourRecursion.Im(),wFourRecursion);
+
+  //  5-p correlations
+  int harmonics_Five_Num[5] = {harmonic,harmonic,harmonic,-harmonic,-2*harmonic}; // harmonic*(1,1,1,-1,-2)
+  int harmonics_Five_Den[5] = {0,0,0,0,0}; // recursion gives the right combinatorics
+  TComplex fiveRecursion = Recursion(5,harmonics_Five_Num)/Recursion(5,harmonics_Five_Den).Re();
+  //double spwFiveRecursion = Recursion(5,harmonics_Five_Den).Re();
+  double wFiveRecursion = 1.0;
+  hmult_recursion[0][3]->Fill(mult,fiveRecursion.Re(),wFiveRecursion);
+  hmult_recursion[1][3]->Fill(mult,fiveRecursion.Im(),wFiveRecursion);
+
   //  6-p correlations:
-  int harmonics_Six_Num[6] = {harmonic,harmonic,harmonic,-harmonic,-harmonic,-harmonic};
+  int harmonics_Six_Num[6] = {harmonic,harmonic,harmonic,-harmonic,-harmonic,-harmonic}; // harmonic*(1,1,1,-1,-1,-1)
   int harmonics_Six_Den[6] = {0,0,0,0,0,0};
   TComplex sixRecursion = Recursion(6,harmonics_Six_Num)/Recursion(6,harmonics_Six_Den).Re();
   //double spwSixRecursion = Recursion(6,harmonics_Six_Den).Re();
   double wSixRecursion = 1.0;
   hmult_recursion[0][4]->Fill(mult,sixRecursion.Re(),wSixRecursion);
   hmult_recursion[1][4]->Fill(mult,sixRecursion.Im(),wSixRecursion);
+
+  //  7-p correlations
+  int harmonics_Seven_Num[7] = {harmonic,harmonic,harmonic,harmonic,-harmonic,-harmonic,-2*harmonic}; // harmonic*(1,1,1,1,-1,-1,-2)
+  int harmonics_Seven_Den[7] = {0,0,0,0,0,0,0}; // recursion gives the right combinatorics
+  TComplex sevenRecursion = Recursion(7,harmonics_Seven_Num)/Recursion(7,harmonics_Seven_Den).Re();
+  //double spwSevenRecursion = Recursion(7,harmonics_Seven_Den).Re();
+  double wSevenRecursion = 1.0;
+  hmult_recursion[0][5]->Fill(mult,sevenRecursion.Re(),wSevenRecursion);
+  hmult_recursion[1][5]->Fill(mult,sevenRecursion.Im(),wSevenRecursion);
+
   //  8-p correlations
   int harmonics_Eight_Num[8] = {harmonic,harmonic,harmonic,harmonic,-harmonic,-harmonic,-harmonic,-harmonic};
   int harmonics_Eight_Den[8] = {0,0,0,0,0,0,0,0};
