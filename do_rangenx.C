@@ -46,6 +46,14 @@ int main(int argc, char *argv[])
   execute(nevents,250,7,2,space,sequence,seed); // nevents, max 250 tracks, 7-p correlation, 2nd harmonic, sequence number, seed
   execute(nevents,250,8,2,space,sequence,seed); // nevents, max 250 tracks, 8-p correlation, 2nd harmonic, sequence number, seed
 
+  execute(nevents,250,2,3,space,sequence,seed); // nevents, max 250 tracks, 2-p correlation, 3rd harmonic, sequence number, seed
+  execute(nevents,250,3,3,space,sequence,seed); // nevents, max 250 tracks, 3-p correlation, 3rd harmonic, sequence number, seed
+  execute(nevents,250,4,3,space,sequence,seed); // nevents, max 250 tracks, 4-p correlation, 3rd harmonic, sequence number, seed
+  execute(nevents,250,5,3,space,sequence,seed); // nevents, max 250 tracks, 5-p correlation, 3rd harmonic, sequence number, seed
+  execute(nevents,250,6,3,space,sequence,seed); // nevents, max 250 tracks, 6-p correlation, 3rd harmonic, sequence number, seed
+  execute(nevents,250,7,3,space,sequence,seed); // nevents, max 250 tracks, 7-p correlation, 3rd harmonic, sequence number, seed
+  execute(nevents,250,8,3,space,sequence,seed); // nevents, max 250 tracks, 8-p correlation, 3rd harmonic, sequence number, seed
+
   return 0;
 
 }
