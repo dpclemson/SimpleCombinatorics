@@ -5,6 +5,7 @@
 #include "TProfile.h"
 #include "TFile.h"
 #include "TRandomGen.h"
+#include "TRandom3.h"
 #include "Recursion.C"
 
 using namespace std;
@@ -95,7 +96,7 @@ void get_corr(int nparticles, int ntuple, int harmonic, double space, int seed)
 {
 
   if ( seed < 0 ) seed = 0;
-  TRandomMT64 angle(seed);
+  TRandom3 angle(seed);
 
   vector <double> ang; // inserting pairs into single object
 
