@@ -127,29 +127,29 @@ void get_corr(int nparticles, int ntuple, int harmonic, double space, int seed)
 
       double phi3 = phi2 + increment + extra;
       ang.push_back(phi3);
-      if( ntuple <= 3 ) continue;
-      
+      if ( ntuple <= 3 ) continue;
+
       double phi4 = phi3 + increment + extra;
       ang.push_back(phi4);
-      if( ntuple <= 4 ) continue;
-      
+      if ( ntuple <= 4 ) continue;
+
       double phi5 = phi4 + increment + extra;
       ang.push_back(phi5);
-      if( ntuple <= 5 ) continue;
+      if ( ntuple <= 5 ) continue;
 
       double phi6 = phi5 + increment + extra;
       ang.push_back(phi6);
-      if( ntuple <= 6 ) continue;
+      if ( ntuple <= 6 ) continue;
 
       double phi7 = phi6 + increment + extra;
       ang.push_back(phi7);
-      if( ntuple <= 7 ) continue;
+      if ( ntuple <= 7 ) continue;
 
       double phi8 = phi7 + increment + extra;
       ang.push_back(phi8);
-      if( ntuple <= 8 ) continue;
-     
-      
+      if ( ntuple <= 8 ) continue;
+
+
     } // end of nparticles for loop
 
   do_recursion(ang,harmonic);
@@ -263,4 +263,3 @@ void do_recursion(vector<double>& ang, int harmonic)
   //cout << eightRecursion.Re() << endl;
 
 } // end do_recursion functions
-
