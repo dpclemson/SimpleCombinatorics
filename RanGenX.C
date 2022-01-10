@@ -18,6 +18,8 @@ void get_corr(int,int,int,double,int);
 // --- recursion function (uses vector of angles to do calculations)
 void do_recursion(vector<double>&,int);
 
+void fix_ang(double&);
+
 // --- gets system time, executes get_corr inside of over sequences/events
 void execute(int,int,int,int,double,int,unsigned int);
 
@@ -110,49 +112,44 @@ void get_corr(int nparticles, int ntuple, int harmonic, double space, int seed)
     {
       //double means an exact number, phi1 is the name of the double for particle 1.
       double phi1 = angle.Uniform(-pi,pi);
-      double phi2 = 0; //same as above, but for particle 2
-      if ( phi1 > 0 ) phi2 = phi1 - 2*pi/harmonic;
-      if ( phi1 < 0 ) phi2 = phi1 + 2*pi/harmonic;
+      double increment = 2*pi/harmonic;
+      double extra = angle.Uniform(-space,space);
+      //double phi2 = 0; //same as above, but for particle 2
+      //if ( phi1 > 0 ) phi2 = phi1 - 2*pi/harmonic;
+      //if ( phi1 < 0 ) phi2 = phi1 + 2*pi/harmonic;
+      double phi2 = phi1 + increment + extra;
+      fix_ang (phi2);
 
       ang.push_back(phi1); //push_back to stack numbers on return
       ang.push_back(phi2);
 
       if ( ntuple <= 2 ) continue;
 
-      double phi3 = 0;
-      double phi4 = 0;
-      if ( phi1 > 0 ) phi3 = phi1 - space;
-      if ( phi1 < 0 ) phi3 = phi1 + space;
-      if ( phi3 > 0 ) phi4 = phi3 - 2*pi/harmonic;
-      if ( phi3 < 0 ) phi4 = phi3 + 2*pi/harmonic;
-
+      double phi3 = phi2 + increment + extra;
       ang.push_back(phi3);
-      if ( ntuple > 3 ) ang.push_back(phi4);
-
-      if ( ntuple <= 4 ) continue;
-
-      double phi5 = 0;
-      double phi6 = 0;
-      if ( phi3 > 0 ) phi5 = phi3 - space;
-      if ( phi3 < 0 ) phi5 = phi3 + space;
-      if ( phi5 > 0 ) phi6 = phi5 - 2*pi/harmonic;
-      if ( phi5 < 0 ) phi6 = phi5 + 2*pi/harmonic;
-
+      if( ntuple <= 3 ) continue;
+      
+      double phi4 = phi3 + increment + extra;
+      ang.push_back(phi4);
+      if( ntuple <= 4 ) continue;
+      
+      double phi5 = phi4 + increment + extra;
       ang.push_back(phi5);
-      if ( ntuple > 5 ) ang.push_back(phi6);
+      if( ntuple <= 5 ) continue;
 
-      if ( ntuple <= 6 ) continue;
+      double phi6 = phi5 + increment + extra;
+      ang.push_back(phi6);
+      if( ntuple <= 6 ) continue;
 
-      double phi7 = 0;
-      double phi8 = 0;
-      if ( phi5 > 0 ) phi7 = phi5 - space;
-      if ( phi5 < 0 ) phi7 = phi5 + space;
-      if ( phi7 > 0 ) phi8 = phi7 - 2*pi/harmonic;
-      if ( phi7 < 0 ) phi8 = phi7 + 2*pi/harmonic;
-
+      double phi7 = phi6 + increment + extra;
       ang.push_back(phi7);
-      if ( ntuple > 7 ) ang.push_back(phi8);
+      if( ntuple <= 7 ) continue;
 
+      double phi8 = phi7 + increment + extra;
+      ang.push_back(phi8);
+      if( ntuple <= 8 ) continue;
+     
+      
     } // end of nparticles for loop
 
   do_recursion(ang,harmonic);
@@ -161,7 +158,11 @@ void get_corr(int nparticles, int ntuple, int harmonic, double space, int seed)
 
 } //end of get_corr
 
-
+void fix_ang(double& ang)
+{
+  if (ang > pi) ang -= 2 * pi;
+  if (ang < -pi) ang += 2 * pi;
+}
 
 void do_recursion(vector<double>& ang, int harmonic)
 {
