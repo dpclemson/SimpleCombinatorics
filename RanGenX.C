@@ -124,27 +124,33 @@ void get_corr(int nparticles, int ntuple, int harmonic, double space, int seed)
       ang.push_back(phi2);
 
       if ( ntuple <= 2 ) continue;
-
+      
+      extra = angle.Uniform(-space,space);
       double phi3 = phi2 + increment + extra;
       ang.push_back(phi3);
       if ( ntuple <= 3 ) continue;
 
+      extra = angle.Uniform(-space,space);
       double phi4 = phi3 + increment + extra;
       ang.push_back(phi4);
       if ( ntuple <= 4 ) continue;
 
+      extra = angle.Uniform(-space,space);      
       double phi5 = phi4 + increment + extra;
       ang.push_back(phi5);
       if ( ntuple <= 5 ) continue;
 
+      extra = angle.Uniform(-space,space);
       double phi6 = phi5 + increment + extra;
       ang.push_back(phi6);
       if ( ntuple <= 6 ) continue;
 
+      extra = angle.Uniform(-space,space);
       double phi7 = phi6 + increment + extra;
       ang.push_back(phi7);
       if ( ntuple <= 7 ) continue;
 
+      extra = angle.Uniform(-space,space);
       double phi8 = phi7 + increment + extra;
       ang.push_back(phi8);
       if ( ntuple <= 8 ) continue;

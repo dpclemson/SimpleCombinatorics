@@ -51,6 +51,7 @@ void callHK(int H,int K){
   //if(K==3)fun.FixParameter(1,K-1);
   if(K%2==0)fun.FixParameter(1,K/2);
   if(K%2!=0)fun.FixParameter(1,(K+1)/2);
+  if(K==2)fun.FixParameter(0,1.0);
   if(K==3)fun.FixParameter(0,3.0);
   if(K==5)fun.FixParameter(0,200.0);
   if(K==6)fun.FixParameter(0,450.0);
