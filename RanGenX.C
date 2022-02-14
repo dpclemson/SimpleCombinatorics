@@ -76,6 +76,7 @@ void execute(int sequences, int nparticles, int ntuple, int harmonic, double spa
       for(int c = 0; c < maxCorrelator; ++c )
         {
 	  hmult_recursion[cs][c]->Write();
+	  d_hmult_recursion[cs][c]->Write();
         }
     }
   //cout<<"Writing File"<<endl;
