@@ -1,5 +1,5 @@
 void callHK(int,int);
-void OHist(){
+void D_OHist(){
   callHK(2,2);
   callHK(2,3);
   callHK(2,4);

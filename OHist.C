@@ -1,5 +1,7 @@
+ofstream fout;
 void callHK(int,int);
 void OHist(){
+  fout.open("P0_of_K");
   callHK(2,2);
   callHK(2,3);
   callHK(2,4);
@@ -14,6 +16,7 @@ void OHist(){
   callHK(3,6);
   callHK(3,7);
   callHK(3,8);
+  fout.close();
 }
 void callHK(int H,int K){
   TFile* file = TFile::Open(Form("CondorOutput/Combined_h%d_k%d.root",H,K));
@@ -54,12 +57,13 @@ void callHK(int H,int K){
   if(K==2)fun.FixParameter(0,1.0);
   if(K==3)fun.FixParameter(0,3.0);
   if(K==5)fun.FixParameter(0,200.0);
-  if(K==6)fun.FixParameter(0,450.0);
+  if(K==6)fun.FixParameter(0,700.0);
   if(K==7)fun.FixParameter(0,10000.0);
   if(K==8)fun.FixParameter(0,30000.0);
   //if(K==3)fun.SetParLimits(1,K-2,K);
   //fun.SetParameter(1,K-1);
   histogram->Fit("fun","R");
+  fout<<K<<" "<<fun.GetParameter(0)<<endl;
   TLatex tex;
   tex.SetNDC();
   tex.DrawLatex(0.6,0.75,Form("p0=%f",fun.GetParameter(0)));
