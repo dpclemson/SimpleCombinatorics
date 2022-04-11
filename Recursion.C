@@ -1,5 +1,5 @@
-const int maxCorrelator = 12;
-const int maxHarmonic = 20;
+const int maxCorrelator = 14;
+const int maxHarmonic = 21;
 const int maxPower = 9;
 TComplex Qvector[maxHarmonic][maxPower];
 

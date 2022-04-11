@@ -9,13 +9,19 @@ void OHist(){
   callHK(2,6);
   callHK(2,7);
   callHK(2,8);
-  callHK(3,2);
-  callHK(3,3);
-  callHK(3,4);
-  callHK(3,5);
-  callHK(3,6);
-  callHK(3,7);
-  callHK(3,8);
+  callHK(2,9);
+  callHK(2,10);
+  callHK(2,11);
+  callHK(2,12);
+  callHK(2,13);
+  callHK(2,14);
+  //callHK(3,2);
+  //callHK(3,3);
+  //callHK(3,4);
+  //callHK(3,5);
+  //callHK(3,6);
+  //callHK(3,7);
+  //callHK(3,8);
   fout.close();
 }
 void callHK(int H,int K){
@@ -60,7 +66,13 @@ void callHK(int H,int K){
   if(K==6)fun.FixParameter(0,700.0);
   if(K==7)fun.FixParameter(0,10000.0);
   if(K==8)fun.FixParameter(0,30000.0);
-  //if(K==3)fun.SetParLimits(1,K-2,K);
+  // if(K==3)fun.FixParameter(0,5.575);
+  // if(K==4)fun.FixParameter(0,31.08);
+  // if(K==5)fun.FixParameter(0,173.3);
+  // if(K==6)fun.FixParameter(0,966.0);
+  // if(K==7)fun.FixParameter(0,5385);
+  // if(K==8)fun.FixParameter(0,30022);
+  // if(K==3)fun.SetParLimits(1,K-2,K);
   //fun.SetParameter(1,K-1);
   histogram->Fit("fun","R");
   fout<<K<<" "<<fun.GetParameter(0)<<endl;

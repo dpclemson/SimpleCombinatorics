@@ -45,6 +45,12 @@ int main(int argc, char *argv[])
   execute(nevents,250,6,2,space,sequence,seed); // nevents, max 250 tracks, 6-p correlation, 2nd harmonic, sequence number, seed
   execute(nevents,250,7,2,space,sequence,seed); // nevents, max 250 tracks, 7-p correlation, 2nd harmonic, sequence number, seed
   execute(nevents,250,8,2,space,sequence,seed); // nevents, max 250 tracks, 8-p correlation, 2nd harmonic, sequence number, seed
+  execute(nevents,250,9,2,space,sequence,seed); // nevents, max 250 tracks, 9-p correlation, 2nd harmonic, sequence number, seed
+  execute(nevents,250,10,2,space,sequence,seed); // nevents, max 250 tracks, 10-p correlation, 2nd harmonic, sequence number, seed
+  execute(nevents,250,11,2,space,sequence,seed); // nevents, max 250 tracks, 11-p correlation, 2nd harmonic, sequence number, seed
+  execute(nevents,250,12,2,space,sequence,seed); // nevents, max 250 tracks, 12-p correlation, 2nd harmonic, sequence number, seed
+  execute(nevents,250,13,2,space,sequence,seed); // nevents, max 250 tracks, 13-p correlation, 2nd harmonic, sequence number, seed
+  execute(nevents,250,14,2,space,sequence,seed); // nevents, max 250 tracks, 14-p correlation, 2nd harmonic, sequence number, seed
 
   execute(nevents,250,2,3,space,sequence,seed); // nevents, max 250 tracks, 2-p correlation, 3rd harmonic, sequence number, seed
   execute(nevents,250,3,3,space,sequence,seed); // nevents, max 250 tracks, 3-p correlation, 3rd harmonic, sequence number, seed
@@ -53,6 +59,12 @@ int main(int argc, char *argv[])
   execute(nevents,250,6,3,space,sequence,seed); // nevents, max 250 tracks, 6-p correlation, 3rd harmonic, sequence number, seed
   execute(nevents,250,7,3,space,sequence,seed); // nevents, max 250 tracks, 7-p correlation, 3rd harmonic, sequence number, seed
   execute(nevents,250,8,3,space,sequence,seed); // nevents, max 250 tracks, 8-p correlation, 3rd harmonic, sequence number, seed
+  execute(nevents,250,9,3,space,sequence,seed); // nevents, max 250 tracks, 9-p correlation, 3rd harmonic, sequence number, seed
+  execute(nevents,250,10,3,space,sequence,seed); // nevents, max 250 tracks, 10-p correlation, 3rd harmonic, sequence number, seed
+  execute(nevents,250,11,3,space,sequence,seed); // nevents, max 250 tracks, 11-p correlation, 3rd harmonic, sequence number, seed
+  execute(nevents,250,12,3,space,sequence,seed); // nevents, max 250 tracks, 12-p correlation, 3rd harmonic, sequence number, seed
+  execute(nevents,250,13,3,space,sequence,seed); // nevents, max 250 tracks, 13-p correlation, 3rd harmonic, sequence number, seed
+  execute(nevents,250,14,3,space,sequence,seed); // nevents, max 250 tracks, 14-p correlation, 3rd harmonic, sequence number, seed
 
   return 0;
 

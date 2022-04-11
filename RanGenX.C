@@ -114,7 +114,7 @@ void get_corr(int nparticles, int ntuple, int harmonic, double space, int seed)
   // than 100 and adds 1 -- if more than 100, than the program stops
 
   //int stop = nparticles/ntuple;
-  //cout<<"Starting For loop over particles"<<endl;
+  cout<<"Starting For loop over particles"<<endl;
   for ( int i = 0; i < nparticles; ++i )
     {
       //double means an exact number, phi1 is the name of the double for particle 1.
@@ -134,39 +134,81 @@ void get_corr(int nparticles, int ntuple, int harmonic, double space, int seed)
       
       extra = angle.Uniform(-space,space);
       double phi3 = phi2 + increment + extra;
+      fix_ang (phi3);
       ang.push_back(phi3);
       if ( ntuple <= 3 ) continue;
 
       extra = angle.Uniform(-space,space);
       double phi4 = phi3 + increment + extra;
+      fix_ang (phi4);
       ang.push_back(phi4);
       if ( ntuple <= 4 ) continue;
 
       extra = angle.Uniform(-space,space);      
       double phi5 = phi4 + increment + extra;
+      fix_ang (phi5);
       ang.push_back(phi5);
       if ( ntuple <= 5 ) continue;
 
       extra = angle.Uniform(-space,space);
       double phi6 = phi5 + increment + extra;
+      fix_ang (phi6);
       ang.push_back(phi6);
       if ( ntuple <= 6 ) continue;
 
       extra = angle.Uniform(-space,space);
       double phi7 = phi6 + increment + extra;
+      fix_ang (phi7);
       ang.push_back(phi7);
       if ( ntuple <= 7 ) continue;
 
       extra = angle.Uniform(-space,space);
       double phi8 = phi7 + increment + extra;
+      fix_ang (phi8);
       ang.push_back(phi8);
       if ( ntuple <= 8 ) continue;
 
+      extra = angle.Uniform(-space,space);
+      double phi9 = phi8 + increment + extra;
+      fix_ang (phi9);
+      ang.push_back(phi9);
+      if ( ntuple <= 9 ) continue;
+      
+      extra = angle.Uniform(-space,space);
+      double phi10 = phi9 + increment + extra;
+      fix_ang (phi10);
+      ang.push_back(phi10);
+      if ( ntuple <= 10 ) continue;
+      
+      extra = angle.Uniform(-space,space);
+      double phi11 = phi10 + increment + extra;
+      fix_ang (phi11);
+      ang.push_back(phi11);
+      if ( ntuple <= 11 ) continue;
+      
+      extra = angle.Uniform(-space,space);
+      double phi12 = phi11 + increment + extra;
+      fix_ang (phi12);
+      ang.push_back(phi12);
+      if ( ntuple <= 12 ) continue;
+      
+      extra = angle.Uniform(-space,space);
+      double phi13 = phi12 + increment + extra;
+      fix_ang (phi13);
+      ang.push_back(phi13);
+      if ( ntuple <= 13 ) continue;
+      
+      extra = angle.Uniform(-space,space);
+      double phi14 = phi13 + increment + extra;
+      fix_ang (phi14);
+      ang.push_back(phi14);
+      if ( ntuple <= 14 ) continue;
+
 
     } // end of nparticles for loop
-  //cout<<"Done Generating Particles, doing Recursion"<<endl;
+  cout<<"Done Generating Particles, doing Recursion"<<endl;
   do_recursion(ang,harmonic);
-  //cout<<"Done with Recursion"<<endl;
+  cout<<"Done with Recursion"<<endl;
   
   return;
 
@@ -181,6 +223,7 @@ void fix_ang(double& ang)
 void do_recursion(vector<double>& ang, int harmonic)
 {
 
+  cout<<"Initializing Q vectors"<<endl;
   for(int h=0;h<maxHarmonic;h++)
     {
       for(int w=0;w<maxPower;w++)
@@ -190,13 +233,14 @@ void do_recursion(vector<double>& ang, int harmonic)
     } // end of loop over maxHarmonic
 
   int mult = ang.size();
-
+  cout<<"Getting Angles"<<endl;
   for ( int i = 0; i < mult; ++i )
     {
       //cout << ang[i] << " " ;
       for(int h=0;h<maxHarmonic;h++)
         {
           double phi = ang[i];
+	  cout<<"Calculating Q-vectors"<<endl;
           // do the summation for the Q-vectors
           for(int w=0;w<maxPower;w++)
             {
@@ -204,6 +248,7 @@ void do_recursion(vector<double>& ang, int harmonic)
             } // end of loop over powers
         } // end of loop over harmonics
     } // end of loop over ang vector
+  cout<<"Filling Histograms"<<endl;
 
   // --- from generic formulas ----------------------------------------------------------------------------
 
@@ -262,7 +307,7 @@ void do_recursion(vector<double>& ang, int harmonic)
   hmult_recursion[1][5]->Fill(mult,sevenRecursion.Im(),wSevenRecursion);
 
   //  8-p correlations
-  int harmonics_Eight_Num[8] = {harmonic,harmonic,harmonic,harmonic,-harmonic,-harmonic,-harmonic,-harmonic};
+  int harmonics_Eight_Num[8] = {harmonic,harmonic,harmonic,harmonic,-harmonic,-harmonic,-harmonic,-harmonic}; // harmonic*(1,1,1,1,-1,-1,-1,-1)
   int harmonics_Eight_Den[8] = {0,0,0,0,0,0,0,0};
   TComplex eightRecursion = Recursion(8,harmonics_Eight_Num)/Recursion(8,harmonics_Eight_Den).Re();
   //double spwEightRecursion = Recursion(8,harmonics_Eight_Den).Re();
@@ -270,13 +315,67 @@ void do_recursion(vector<double>& ang, int harmonic)
   hmult_recursion[0][6]->Fill(mult,eightRecursion.Re(),wEightRecursion);
   hmult_recursion[1][6]->Fill(mult,eightRecursion.Im(),wEightRecursion);
 
+  //  9-p correlations
+  int harmonics_Nine_Num[9] = {harmonic,harmonic,harmonic,harmonic,harmonic,-harmonic,-harmonic,-harmonic,-2*harmonic}; // harmonic*(1,1,1,1,1,-1,-1,-1,-2)
+  int harmonics_Nine_Den[9] = {0,0,0,0,0,0,0,0,0};
+  TComplex nineRecursion = Recursion(9,harmonics_Nine_Num)/Recursion(9,harmonics_Nine_Den).Re();
+  //double spwNineRecursion = Recursion(9,harmonics_Nine_Den).Re();
+  double wNineRecursion = 1.0;
+  hmult_recursion[0][7]->Fill(mult,nineRecursion.Re(),wNineRecursion);
+  hmult_recursion[1][7]->Fill(mult,nineRecursion.Im(),wNineRecursion);
+
+  //  10-p correlations
+  int harmonics_Ten_Num[10] = {harmonic,harmonic,harmonic,harmonic,harmonic,-harmonic,-harmonic,-harmonic,-harmonic,-harmonic}; // harmonic*(1,1,1,1,1,-1,-1,-1,-1,-1)
+  int harmonics_Ten_Den[10] = {0,0,0,0,0,0,0,0,0,0};
+  TComplex tenRecursion = Recursion(10,harmonics_Ten_Num)/Recursion(10,harmonics_Ten_Den).Re();
+  //double spwTenRecursion = Recursion(10,harmonics_Ten_Den).Re();
+  double wTenRecursion = 1.0;
+  hmult_recursion[0][8]->Fill(mult,tenRecursion.Re(),wTenRecursion);
+  hmult_recursion[1][8]->Fill(mult,tenRecursion.Im(),wTenRecursion);
+
+  //  11-p correlations
+  int harmonics_Eleven_Num[11] = {harmonic,harmonic,harmonic,harmonic,harmonic,harmonic,-harmonic,-harmonic,-harmonic,-harmonic,-2*harmonic}; // harmonic*(1,1,1,1,1,1,-1,-1,-1,-1,-2)
+  int harmonics_Eleven_Den[11] = {0,0,0,0,0,0,0,0,0,0,0};
+  TComplex elevenRecursion = Recursion(11,harmonics_Eleven_Num)/Recursion(11,harmonics_Eleven_Den).Re();
+  //double spwElevenRecursion = Recursion(11,harmonics_Eleven_Den).Re();
+  double wElevenRecursion = 1.0;
+  hmult_recursion[0][9]->Fill(mult,elevenRecursion.Re(),wElevenRecursion);
+  hmult_recursion[1][9]->Fill(mult,elevenRecursion.Im(),wElevenRecursion);
+
+  //  12-p correlations
+  int harmonics_Twelve_Num[12] = {harmonic,harmonic,harmonic,harmonic,harmonic,harmonic,-harmonic,-harmonic,-harmonic,-harmonic,-harmonic,-harmonic}; // harmonic*(1,1,1,1,1,1,-1,-1,-1,-1,-1,-1)
+  int harmonics_Twelve_Den[12] = {0,0,0,0,0,0,0,0,0,0,0,0};
+  TComplex twelveRecursion = Recursion(12,harmonics_Twelve_Num)/Recursion(12,harmonics_Twelve_Den).Re();
+  //double spwTwelveRecursion = Recursion(12,harmonics_Twelve_Den).Re();
+  double wTwelveRecursion = 1.0;
+  hmult_recursion[0][10]->Fill(mult,twelveRecursion.Re(),wTwelveRecursion);
+  hmult_recursion[1][10]->Fill(mult,twelveRecursion.Im(),wTwelveRecursion);
+
+  //  13-p correlations
+  int harmonics_Thirteen_Num[13] = {harmonic,harmonic,harmonic,harmonic,harmonic,harmonic,harmonic,-harmonic,-harmonic,-harmonic,-harmonic,-harmonic,-2*harmonic}; // harmonic*(1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-2)
+  int harmonics_Thirteen_Den[13] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
+  TComplex thirteenRecursion = Recursion(13,harmonics_Thirteen_Num)/Recursion(13,harmonics_Thirteen_Den).Re();
+  //double spwThirteenRecursion = Recursion(13,harmonics_Thirteen_Den).Re();
+  double wThirteenRecursion = 1.0;
+  hmult_recursion[0][11]->Fill(mult,thirteenRecursion.Re(),wThirteenRecursion);
+  hmult_recursion[1][11]->Fill(mult,thirteenRecursion.Im(),wThirteenRecursion);
+
+  //  14-p correlations
+  int harmonics_Fourteen_Num[14] = {harmonic,harmonic,harmonic,harmonic,harmonic,harmonic,harmonic,-harmonic,-harmonic,-harmonic,-harmonic,-harmonic,-harmonic,-harmonic}; // harmonic*(1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1)
+  int harmonics_Fourteen_Den[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+  TComplex fourteenRecursion = Recursion(14,harmonics_Fourteen_Num)/Recursion(14,harmonics_Fourteen_Den).Re();
+  //double spwFourteenRecursion = Recursion(14,harmonics_Fourteen_Den).Re();
+  double wFourteenRecursion = 1.0;
+  hmult_recursion[0][12]->Fill(mult,fourteenRecursion.Re(),wFourteenRecursion);
+  hmult_recursion[1][12]->Fill(mult,fourteenRecursion.Im(),wFourteenRecursion);
 
 
+  
   // ---------------------------------------------------------------------------------------
   // ---------------------------------------------------------------------------------------
   // ---------------------------------------------------------------------------------------
 
-
+  cout<<"Filling Double Harmonic Histograms"<<endl;
 
   int d_harmonic = 2*harmonic;
   
@@ -348,5 +447,5 @@ void do_recursion(vector<double>& ang, int harmonic)
   //cout << fourd_Recursion.Re() << endl;
   //cout << sixd_Recursion.Re() << endl;
   //cout << eightd_Recursion.Re() << endl;
-
+  cout<<"Finished do_recursion"<<endl;
 } // end do_recursion functions
